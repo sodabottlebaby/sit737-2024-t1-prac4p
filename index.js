@@ -6,21 +6,14 @@ const winston = require('winston');
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),
-    defaultMeta: { service: 'calculate-service' },
+    defaultMeta: { service: 'calculator-microservice' },
     transports: [
-      //
-      // - Write all logs with importance level of `error` or less to `error.log`
-      // - Write all logs with importance level of `info` or less to `combined.log`
-      //
-      new winston.transports.File({ filename: 'error.log', level: 'error' }),
-      new winston.transports.File({ filename: 'combined.log' }),
+      new winston.transports.Console({ format: winston.format.simple()}),
+      new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+      new winston.transports.File({ filename: 'logs/combined.log' }),
     ],
   });
   
-  //
-  // If we're not in production then log to the `console` with the format:
-  // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-  //
   if (process.env.NODE_ENV !== 'production') {
     logger.add(new winston.transports.Console({
       format: winston.format.simple(),
@@ -41,6 +34,12 @@ const divide= (n1,n2) => {
 }
 
 app.get("/add", (req,res)=>{
+  const operation = 'addition';
+  logger.log({
+    level: 'info',
+    message: `New ${operation} operation requested: ${req.query.n1} ${operation} ${req.query.n2}`,
+  });
+
   try{
     const n1= parseFloat(req.query.n1);
     const n2=parseFloat(req.query.n2);
@@ -63,6 +62,12 @@ app.get("/add", (req,res)=>{
 });
 
 app.get("/subtract", (req,res)=>{
+  const operation = 'subtraction';
+  logger.log({
+    level: 'info',
+    message: `New ${operation} operation requested: ${req.query.n1} ${operation} ${req.query.n2}`,
+  });
+
   try{
   const n1= parseFloat(req.query.n1);
   const n2=parseFloat(req.query.n2);
@@ -85,6 +90,12 @@ app.get("/subtract", (req,res)=>{
 });
 
 app.get("/multiply", (req,res)=>{
+  const operation = 'multiplication';
+  logger.log({
+    level: 'info',
+    message: `New ${operation} operation requested: ${req.query.n1} ${operation} ${req.query.n2}`,
+  });
+
   try{
   const n1= parseFloat(req.query.n1);
   const n2=parseFloat(req.query.n2);
@@ -107,6 +118,12 @@ app.get("/multiply", (req,res)=>{
 });
 
 app.get("/divide", (req,res)=>{
+  const operation = 'division';
+  logger.log({
+    level: 'info',
+    message: `New ${operation} operation requested: ${req.query.n1} ${operation} ${req.query.n2}`,
+  });
+
   try{
   const n1= parseFloat(req.query.n1);
   const n2=parseFloat(req.query.n2);

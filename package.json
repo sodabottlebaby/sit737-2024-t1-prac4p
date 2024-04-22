@@ -1,0 +1,18 @@
+{
+  "name": "sit737-4.1p-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Su Myat Thiri",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "node": "^18.20.2",
+    "res": "^0.4.0",
+    "winston": "^3.13.0"
+  }
+}
